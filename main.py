@@ -1,4 +1,9 @@
+import re
+
 # Day 1
 day1_part1 = lambda: [int(open("inputs/day1 input", "r").readlines()[i]) * int(open("inputs/day1 input", "r").readlines()[j]) for i in list(range(1, int(len(open("inputs/day1 input", "r").readlines())))) for j in list(range(i)) if int(open("inputs/day1 input", "r").readlines()[i]) + int(open("inputs/day1 input", "r").readlines()[j]) == 2020][0]
 day1_part2 = lambda: [int(open("inputs/day1 input", "r").readlines()[i]) * int(open("inputs/day1 input", "r").readlines()[j]) * int(open("inputs/day1 input", "r").readlines()[k]) for i in list(range(1, int(len(open("inputs/day1 input", "r").readlines())))) for j in list(range(i)) if int(open("inputs/day1 input", "r").readlines()[i]) for k in list(range(j)) if int(open("inputs/day1 input", "r").readlines()[i]) + int(open("inputs/day1 input", "r").readlines()[j]) + int(open("inputs/day1 input", "r").readlines()[k]) == 2020][0]
 
+# Day 2
+day2_part1 = lambda: len(["ok" for line in open("inputs/day2 input", "r").readlines() if re.match(".*: [^"+re.match(r'(\d+)-(\d+) (\w)', line).group(3)+"]*("+re.match(r'(\d+)-(\d+) (\w)', line).group(3)+"[^"+re.match(r'(\d+)-(\d+) (\w)', line).group(3)+"]*)"+"{"+re.match(r'(\d+)-(\d+) (\w)', line).group(1)+","+re.match(r'(\d+)-(\d+) (\w)', line).group(2)+"}$", line)])
+day2_part2 = lambda: len(["ok" for line in open("inputs/day2 input", "r").readlines() if re.match("^.*: ((?=.{"+re.match(r'(\d+)-(\d+) (\w)', line).group(1)+"}(?<="+re.match(r'(\d+)-(\d+) (\w)', line).group(3)+"))(?=.{"+re.match(r'(\d+)-(\d+) (\w)', line).group(2)+"}(?<!"+re.match(r'(\d+)-(\d+) (\w)', line).group(3)+"))|(?=.{"+re.match(r'(\d+)-(\d+) (\w)', line).group(1)+"}(?<!"+re.match(r'(\d+)-(\d+) (\w)', line).group(3)+"))(?=.{"+re.match(r'(\d+)-(\d+) (\w)', line).group(2)+"}(?<="+re.match(r'(\d+)-(\d+) (\w)', line).group(3)+")))", line)])
