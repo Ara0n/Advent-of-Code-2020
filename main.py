@@ -17,7 +17,7 @@ day3_part2 = lambda input=open("inputs/day3 input", "r"): np.prod([len(["bonk!" 
 day4_part1 = lambda input=open("inputs/day4 input", "r"): len(["ok" for doc in input.read().split("\n\n") if re.match("^(?=.*byr)(?=.*iyr)(?=.*eyr)(?=.*hgt)(?=.*hcl)(?=.*ecl)(?=.*pid).*$", doc.replace("\n", " "))])
 day4_part2 = lambda input=open("inputs/day4 input", "r"): len(["ok" for doc in input.read().split("\n\n") if re.match("^(?=.*byr:(19[2-9]\d|200[0-2])( |$))(?=.*iyr:(201\d|2020)( |$))(?=.*eyr:(202\d|2030)( |$))(?=.*hgt:((1[5-8]\d|19[0-3])cm|(59|6\d|7[0-6])in)( |$))(?=.*hcl:#[\da-f]{6}( |$))(?=.*ecl:(amb|blu|brn|gry|grn|hzl|oth)( |$))(?=.*pid:\d{9}( |$)).*$", doc.replace("\n", " "))])
 
-
+# Day 5
 def day5_long():
     with open("inputs/day5 input", "r") as f:
         data = f.readlines()
@@ -52,3 +52,21 @@ def day5_part2_long():
     for i in range(len(valid_ids)-1):
         if valid_ids[i]+1 != valid_ids[i+1]:
             return valid_ids[i]+1
+
+# Day 6
+def day6_long_part1():
+    with open("inputs/day6 input", "r") as f:
+        data = [set(string.replace("\n", "")) for string in f.read().split("\n\n")]
+
+    return np.sum([len(i) for i in data])
+
+def day6_part2_long():
+    with open("inputs/day6 input", "r") as f:
+        data = f.read().split("\n\n")
+
+    valid = []
+    for group in data:
+        aaa = [set(sheet) for sheet in group.splitlines()]
+        valid.append(len(aaa[0].intersection(*aaa)))
+
+    return sum(valid)
