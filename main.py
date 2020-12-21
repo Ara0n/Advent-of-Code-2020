@@ -53,20 +53,7 @@ def day5_part2_long():
         if valid_ids[i]+1 != valid_ids[i+1]:
             return valid_ids[i]+1
 
+
 # Day 6
-def day6_long_part1():
-    with open("inputs/day6 input", "r") as f:
-        data = [set(string.replace("\n", "")) for string in f.read().split("\n\n")]
-
-    return np.sum([len(i) for i in data])
-
-def day6_part2_long():
-    with open("inputs/day6 input", "r") as f:
-        data = f.read().split("\n\n")
-
-    valid = []
-    for group in data:
-        aaa = [set(sheet) for sheet in group.splitlines()]
-        valid.append(len(aaa[0].intersection(*aaa)))
-
-    return sum(valid)
+day6_part1 = lambda input=open("inputs/day6 input", "r"): sum([len(set(string.replace("\n", ""))) for string in input.read().split("\n\n")])
+day6_part2 = lambda input=open("inputs/day6 input", "r"): sum([len([set(sheet) for sheet in group.splitlines()][0].intersection(*[set(sheet) for sheet in group.splitlines()])) for group in input.read().split("\n\n")])
