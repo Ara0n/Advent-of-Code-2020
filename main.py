@@ -57,3 +57,51 @@ def day5_part2_long():
 # Day 6
 day6_part1 = lambda input=open("inputs/day6 input", "r"): sum([len(set(string.replace("\n", ""))) for string in input.read().split("\n\n")])
 day6_part2 = lambda input=open("inputs/day6 input", "r"): sum([len([set(sheet) for sheet in group.splitlines()][0].intersection(*[set(sheet) for sheet in group.splitlines()])) for group in input.read().split("\n\n")])
+
+# Day 7
+def day7_long():
+    with open("inputs/day7 input", "r") as f:
+        data = f.readlines()
+
+    reg = re.compile(r"(?:(\d+) ([a-z ]+?)s?(?:, |\.))")
+    bags = {}
+
+    for line in data:
+        name = line.split("s contain ")[0]
+        # contained = {"shiny gold bag": 0}
+        contained = {}
+
+        bag_info = reg.findall(line)
+        for bag in bag_info:
+            contained[bag[1]] = int(bag[0])
+        bags[name] = contained
+
+    return bags
+
+def day7_part1_long():
+    bags = day7_long()
+
+    valid = set()
+    valid_len = -1
+
+    while len(valid) != valid_len:
+        valid_len = len(valid)
+        for bag in bags.items():
+            for sub_bag in bag[1]:
+                if sub_bag == "shiny gold bag" or sub_bag in valid:
+                    valid.add(bag[0])
+                    break
+
+    return valid
+
+def day7_part2_long():
+    bags = day7_long()
+
+    def count(name):
+        total = 0
+        for sub_bag in bags.get(name):
+            total += bags.get(name).get(sub_bag)
+            total += bags.get(name).get(sub_bag) * count(sub_bag)
+        return total
+
+    return count("shiny gold bag")
